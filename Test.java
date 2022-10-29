@@ -1,0 +1,13 @@
+public class Test {
+    public static void main(String args[]) {
+        //System.out.println(Integer.parseInt("1c",16)); 
+        TrameEthernet t = TrameEthernet.loadTrame("trame.txt");
+        //t.loadTrame("trame.txt");
+        //System.out.println(t.toString());
+        //System.out.println(t.addressMac());
+        //System.out.println(t.isIPv4()); 
+        //IPv4 p = new IPv4(t); 
+        //System.out.println(p.toString());
+
+    }
+}
