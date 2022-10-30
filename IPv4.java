@@ -10,7 +10,7 @@ public class IPv4 {
     public IPv4(TrameEthernet t) {
         if (t.isIPv4()) {
             if (t.liste.get(14) == 69) {
-                datagramme = new ArrayList<Integer>(t.liste.subList(14,32));
+                datagramme = new ArrayList<Integer>(t.liste.subList(14,34));
             }
             else {
                 datagramme = new ArrayList<Integer>(t.liste.subList(14,74));

@@ -21,13 +21,11 @@ public class TrameEthernet {
         String line;
 
 			while((line = bf.readLine())!=null) {
-                //System.out.println(line.toString());
-				String[] digits = line.split("\\s+"); // couper le string
+                String parts[] = line.split("   "); //j'ignore les caractères tout à droite
+				String[] digits = parts[0].split("\\s+"); // couper le string
                                                         // sur les espaces
-                //System.out.println(line.length());
-                int a = line.length();
-                for (int i = 1; i < a - 2; i++) {
-                    System.out.println(digits[i].toString());
+    
+                for (int i = 1; i < digits.length ; i++) {
                     l.add(Integer.parseInt(digits[i], 16)) ;
                 }							 
             }
