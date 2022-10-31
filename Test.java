@@ -6,6 +6,7 @@ public class Test {
         System.out.println(t.isIPv4()); 
         IPv4 p = new IPv4(t); 
         System.out.println(p.toString());
+        System.out.println(p.analyse_IPv4());
 
     }
 }
