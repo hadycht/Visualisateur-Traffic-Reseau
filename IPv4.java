@@ -7,7 +7,7 @@ public class IPv4 {
     protected ArrayList<Integer> dataIpv4;
 
     public IPv4() {
-        enteteIpv4 = new ArrayList<Integer>() ;
+        enteteIpv4 = new ArrayList<Integer>();
         dataIpv4 = new ArrayList<Integer>();
     } 
 
@@ -22,11 +22,13 @@ public class IPv4 {
                 dataIpv4 = new ArrayList<Integer>(t.dataEth.subList(60, t.dataEth.size()));
             }
         }
+        System.out.println("entete IPV4:\n");
+        System.out.println(enteteIpv4);
     }
 
     //la longueur du segment IPv4
     public int headerLength(){
-        return 4*(enteteIpv4.get(0)-64);
+        return 4*(enteteIpv4.get(0)/16);
     }
 
     //verifie si le Ipv4 contient des options ou pas
@@ -38,7 +40,7 @@ public class IPv4 {
     }
     //la longeur totale avec les données
     public int totalLength(){
-        return enteteIpv4.get(3);
+        return enteteIpv4.get(3)*16*16;
     }
 
     // le champs identification en Ipv4
@@ -67,7 +69,7 @@ public class IPv4 {
 
     //
     protected boolean isTCP(){
-        return enteteIpv4.get(10) == 6;
+        return enteteIpv4.get(9) == 6;
     }
 
     public String Protocol(){
