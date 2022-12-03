@@ -3,26 +3,30 @@ import java.util.*;
 
 public class IPv4 {
 
-    private ArrayList<Integer> datagramme;
+    protected ArrayList<Integer> enteteIpv4;
+    protected ArrayList<Integer> dataIpv4;
 
     public IPv4() {
-        datagramme = new ArrayList<Integer>() ;
+        enteteIpv4 = new ArrayList<Integer>() ;
+        dataIpv4 = new ArrayList<Integer>();
     } 
 
     public IPv4(TrameEthernet t) {
         if (t.isIPv4()) {
-            if (t.liste.get(14) == 69) {
-                datagramme = new ArrayList<Integer>(t.liste.subList(14,34));
+            if (t.dataEth.get(0) == 69) {
+                enteteIpv4 = new ArrayList<Integer>(t.dataEth.subList(0,20));
+                dataIpv4 = new ArrayList<Integer>(t.dataEth.subList(20, t.dataEth.size()));
             }
             else {
-                datagramme = new ArrayList<Integer>(t.liste.subList(14,74));
+                enteteIpv4 = new ArrayList<Integer>(t.dataEth.subList(0,60));
+                dataIpv4 = new ArrayList<Integer>(t.dataEth.subList(60, t.dataEth.size()));
             }
         }
     }
 
     //la longueur du segment IPv4
     public int headerLength(){
-        return 4*(datagramme.get(0)-64);
+        return 4*(enteteIpv4.get(0)-64);
     }
 
     //verifie si le Ipv4 contient des options ou pas
@@ -34,14 +38,14 @@ public class IPv4 {
     }
     //la longeur totale avec les données
     public int totalLength(){
-        return datagramme.get(3);
+        return enteteIpv4.get(3);
     }
 
     // le champs identification en Ipv4
     public String identificationHexa(){
         String s = "";
-        s += Integer.toHexString(datagramme.get(4));
-        s += Integer.toHexString(datagramme.get(5));
+        s += Integer.toHexString(enteteIpv4.get(4));
+        s += Integer.toHexString(enteteIpv4.get(5));
         return s;
     }
 
@@ -58,12 +62,12 @@ public class IPv4 {
 
     //retourne la valeur du champs TTl
     public Integer getTTL() {
-        return datagramme.get(8);
+        return enteteIpv4.get(8);
     }
 
     //
-    private boolean isTCP(){
-        return datagramme.get(10) == 6;
+    protected boolean isTCP(){
+        return enteteIpv4.get(10) == 6;
     }
 
     public String Protocol(){
@@ -74,7 +78,7 @@ public class IPv4 {
             s = "TCP";
         }
         //Il avait pas demandé de faire pour udp mais on garde pour le moment.
-        else if(datagramme.get(9) == 17){
+        else if(enteteIpv4.get(9) == 17){
             s = "UDP";
         }
         else{
@@ -85,8 +89,8 @@ public class IPv4 {
     //control zone : header checksum
     public String headerChecksumHex(){
         String s = "";
-        s += Integer.toHexString(datagramme.get(10));
-        s += Integer.toHexString(datagramme.get(11));
+        s += Integer.toHexString(enteteIpv4.get(10));
+        s += Integer.toHexString(enteteIpv4.get(11));
         return s;
     }
 
@@ -96,30 +100,30 @@ public class IPv4 {
 
     //retourne adresse Ip source
     public ArrayList<Integer> getAdresseIPSrc() {
-        return new ArrayList<>(datagramme.subList(12, 16));
+        return new ArrayList<>(enteteIpv4.subList(12, 16));
     }
 
     //retourne adresse Ip destination
     public ArrayList<Integer> getAdresseIPDst() {
-        return new ArrayList<>(datagramme.subList(16, 20));
+        return new ArrayList<>(enteteIpv4.subList(16, 20));
     }
 
     //Analyse les champs du segments IPv4
     public ArrayList<String> analyse_IPv4(){
 
-        if(datagramme.isEmpty()){
+        if(enteteIpv4.isEmpty()){
             return null;
         }
         else{
             ArrayList<String> information = new ArrayList<String>();
             information.add("Version : 4");
             information.add("Header Length : " +this.headerLength()+" bytes");
-            information.add("Differentiated Services Field : "+datagramme.get(2));
+            information.add("Differentiated Services Field : "+enteteIpv4.get(2));
             information.add("Total Length : "+ this.totalLength());
             information.add("Identification : "+("0x"+ this.identificationHexa())+" ("+ this.identificationNumber()+")");
             information.add("Flags : ");
             information.add("Time to Live : " + this.getTTL());
-            information.add("Protocol : "+ this.Protocol()+" ("+datagramme.get(9)+")");
+            information.add("Protocol : "+ this.Protocol()+" ("+enteteIpv4.get(9)+")");
             information.add("Header Checksum : "+("0x"+ this.headerChecksumHex()));
             information.add("Source Address : "+ this.getAdresseIPSrc());
             information.add("Destination Address : "+this.getAdresseIPDst());
@@ -131,7 +135,7 @@ public class IPv4 {
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for(Integer i: datagramme) {
+        for(Integer i: enteteIpv4) {
             str.append(i + " ");
         }
         str.delete(str.length()-1, str.length());
