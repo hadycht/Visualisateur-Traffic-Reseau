@@ -42,11 +42,16 @@ public class Tcp {
     public int getDataOffset(){
         return 4*(enteteTcp.get(12)/16);
     }
-    /*
-    public ArrayList<Integer> Flags(){
+    
+    public ArrayList<Integer> getFlags(){
         
+        ArrayList<Integer> f = new ArrayList<Integer>();
+        String Reserved = Integer.toBinaryString(enteteTcp.get(12)/16).substring(0,3); //Reserved (never bit but could be in the future)
+        int Drapeaux = enteteTcp.get(13)/16;
+        
+        return f;
     }
-    */
+    
     public int getWindowsLength(){
         return enteteTcp.get(14)*16*16+enteteTcp.get(15);
     }
