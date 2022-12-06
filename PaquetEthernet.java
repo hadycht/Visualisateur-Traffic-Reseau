@@ -34,12 +34,12 @@ public class PaquetEthernet {
                 String parts[] = line.split("   "); //j'ignore les caractères tout à droite
                 String[] digits = parts[0].split("\\s+"); // couper le string
                                                     // sur les espaces
+                
                 if ((digits[0].equals(index)) && (! l.isEmpty())) { 
                     p.add(l);
                     l = new ArrayList<>();  
                     nb++;
-
-                }
+                } 
                 for (int i = 1; i < digits.length ; i++) {
                     l.add(Integer.parseInt(digits[i], 16)) ;
                 }						 
@@ -53,7 +53,18 @@ public class PaquetEthernet {
         nb++;
 		return new PaquetEthernet(p,nb);
     } 
- 
+    
+    public static void menu() {
+        System.out.println("\n------------                               VISUALISATEUR TRAFFIC RESEAU                                -------------");
+        System.out.println();
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
+        System.out.print("          Emetteur                            ");
+        System.out.print("          Recepteur "); 
+        System.out.println("                        Commentaire");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
+
+
+    }
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (ArrayList<Integer> liste : this.paquet) {

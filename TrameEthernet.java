@@ -34,14 +34,24 @@ public class TrameEthernet {
         return l;
     }
     //retourne l'adresse Mac source
-    private ArrayList<Integer> getaddressMacSrc () {
-        return new ArrayList<Integer>(enteteEth.subList(6, 12));
+    public String getaddressMacSrc () {
+        String str = new String();
+        for (Integer i : enteteEth.subList(6, 12)) {
+            str = str + Integer.toHexString(i) + ":";
+        }
+        str = str.substring(0, str.length()-1) + '\0';
+        return str;
     } 
 
     //retourne l'adresse Mac destination
-    private ArrayList<Integer> getaddressMacDst () {
-        return new ArrayList<Integer>(enteteEth.subList(0, 6));
-    } 
+    public String getaddressMacDest () {
+        String str = new String();
+        for (Integer i : enteteEth.subList(0, 6)) {
+            str = str + Integer.toHexString(i) + ":";
+        }
+        str = str.substring(0, str.length()-1) + '\0';
+        return str;
+    }
 
     public Boolean isIPv4() {
         return (this.enteteEth.get(12) == 8 && enteteEth.get(13) == 0);

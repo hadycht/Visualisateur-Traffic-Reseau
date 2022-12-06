@@ -12,15 +12,10 @@ public class IPv4 {
     } 
 
     public IPv4(TrameEthernet t) {
-        if (t.isIPv4()) {
-            if (t.dataEth.get(0) == 69) {
-                enteteIpv4 = new ArrayList<Integer>(t.dataEth.subList(0,20));
-                dataIpv4 = new ArrayList<Integer>(t.dataEth.subList(20, t.dataEth.size()));
-            }
-            else {
-                enteteIpv4 = new ArrayList<Integer>(t.dataEth.subList(0,60));
-                dataIpv4 = new ArrayList<Integer>(t.dataEth.subList(60, t.dataEth.size()));
-            }
+        if (t.isIPv4()) { 
+            int ihl = (t.dataEth.get(0)-64)*4;
+            enteteIpv4 = new ArrayList<Integer>(t.dataEth.subList(0,ihl));
+            dataIpv4 = new ArrayList<Integer>(t.dataEth.subList(ihl, t.dataEth.size()));
         }
     }
 
@@ -38,7 +33,7 @@ public class IPv4 {
     }
     //la longeur totale avec les données
     public int totalLength(){
-        return enteteIpv4.get(3);
+        return enteteIpv4.get(2)*16*16 + enteteIpv4.get(3);
     }
 
     // le champs identification en Ipv4
@@ -67,7 +62,7 @@ public class IPv4 {
 
     //
     protected boolean isTCP(){
-        return enteteIpv4.get(10) == 6;
+        return enteteIpv4.get(9) == 6;
     }
 
     public String Protocol(){
@@ -99,13 +94,23 @@ public class IPv4 {
     }
 
     //retourne adresse Ip source
-    public ArrayList<Integer> getAdresseIPSrc() {
-        return new ArrayList<>(enteteIpv4.subList(12, 16));
+    public String getAdresseIPSrc() {
+        String str = new String();
+        for (Integer i : enteteIpv4.subList(12, 16)) {
+            str = str + Integer.toString(i) + ".";
+        }
+        str = str.substring(0, str.length()-1) + '\0';
+        return str;
     }
 
     //retourne adresse Ip destination
-    public ArrayList<Integer> getAdresseIPDst() {
-        return new ArrayList<>(enteteIpv4.subList(16, 20));
+    public String getAdresseIPDst() {
+        String str = new String();
+        str = "";
+        for (Integer i : enteteIpv4.subList(16, 20)) {
+            str = str + Integer.toString(i) + ".";
+        }
+        return str.substring(0, str.length()-1);
     }
 
     //Analyse les champs du segments IPv4
