@@ -7,7 +7,7 @@ public class IPv4 {
     protected ArrayList<Integer> dataIpv4;
 
     public IPv4() {
-        enteteIpv4 = new ArrayList<Integer>() ;
+        enteteIpv4 = new ArrayList<Integer>();
         dataIpv4 = new ArrayList<Integer>();
     } 
 
@@ -17,11 +17,13 @@ public class IPv4 {
             enteteIpv4 = new ArrayList<Integer>(t.dataEth.subList(0,ihl));
             dataIpv4 = new ArrayList<Integer>(t.dataEth.subList(ihl, t.dataEth.size()));
         }
+        System.out.println("entete IPV4:\n");
+        System.out.println(enteteIpv4);
     }
 
     //la longueur du segment IPv4
     public int headerLength(){
-        return 4*(enteteIpv4.get(0)-64);
+        return 4*(enteteIpv4.get(0)/16);
     }
 
     //verifie si le Ipv4 contient des options ou pas
@@ -33,7 +35,11 @@ public class IPv4 {
     }
     //la longeur totale avec les données
     public int totalLength(){
+<<<<<<< HEAD
         return enteteIpv4.get(2)*16*16 + enteteIpv4.get(3);
+=======
+        return enteteIpv4.get(3)*16*16;
+>>>>>>> c569c6b9c778081f194312c07043d92e9011f68a
     }
 
     // le champs identification en Ipv4
@@ -48,12 +54,19 @@ public class IPv4 {
         return Long.parseLong(identificationHexa(),16);
     }
 
-    /*
-    public String Flags(){
-        String flags = "Reserved bit : Not set";
+    // contient une liste contenant les valeurs des drapeaux [Reserved bit : 0 (binaire), Don't fragment : (binaire), More fragments : (binaire), fragments offset : (decimal)]
+    public ArrayList<Integer> Flags(){
         
+        ArrayList<Integer> f = new ArrayList<Integer>();
+        String Drapeaux = Integer.toBinaryString(enteteIpv4.get(6)/16);
+        String Frag_offset = Drapeaux.substring(2)+Integer.toBinaryString(enteteIpv4.get(7)/16); //fragments offset bits
+        f.add(0); //Reserve bit (never set)
+        f.add(Drapeaux.charAt(0) - '0'); //Don't fragment
+        f.add(Drapeaux.charAt(1) - '0'); //More fragments
+        f.add(Integer.parseInt(Frag_offset)); //fragments Offset (base 10)
+        return f;  
     }
-    */ 
+    
 
     //retourne la valeur du champs TTl
     public Integer getTTL() {
@@ -126,7 +139,8 @@ public class IPv4 {
             information.add("Differentiated Services Field : "+enteteIpv4.get(2));
             information.add("Total Length : "+ this.totalLength());
             information.add("Identification : "+("0x"+ this.identificationHexa())+" ("+ this.identificationNumber()+")");
-            information.add("Flags : ");
+            ArrayList<Integer> flags = Flags();
+            information.add("Flags : (Reserve bit: "+flags.get(0)+", Don't fragment : "+flags.get(1)+", More fragment : "+flags.get(2)+", Fragment Offset : "+flags.get(3)+")");
             information.add("Time to Live : " + this.getTTL());
             information.add("Protocol : "+ this.Protocol()+" ("+enteteIpv4.get(9)+")");
             information.add("Header Checksum : "+("0x"+ this.headerChecksumHex()));

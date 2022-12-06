@@ -15,12 +15,18 @@ public class Tcp {
 
     public Tcp(IPv4 ip) {
         if (ip.isTCP()) {
+<<<<<<< HEAD
             int thl = ip.dataIpv4.get(12)/4;
             enteteTcp = new ArrayList<Integer>(ip.dataIpv4.subList(0,thl));
             dataTcp = new ArrayList<Integer>(ip.dataIpv4.subList(thl, ip.dataIpv4.size()));
             String fl = Integer.toBinaryString(ip.dataIpv4.get(13));
             while(fl.length() < 8) {
                 fl = "0" + fl;
+=======
+            if (ip.enteteIpv4.get(3) == 40) {
+                enteteTcp = new ArrayList<Integer>(ip.dataIpv4.subList(0,20));
+                dataTcp = new ArrayList<Integer>(ip.dataIpv4.subList(20, ip.dataIpv4.size()));
+>>>>>>> c569c6b9c778081f194312c07043d92e9011f68a
             }
             //System.out.println(fl);
             //System.out.println(fl.charAt(2));
@@ -35,13 +41,18 @@ public class Tcp {
     } 
     
     public Integer getSrcePort() {
+<<<<<<< HEAD
         return (this.enteteTcp.get(0)*16*16 + this.enteteTcp.get(1));
+=======
+        return enteteTcp.get(0)*16*16+enteteTcp.get(1);
+>>>>>>> c569c6b9c778081f194312c07043d92e9011f68a
     }
 
     public Integer getDestPort() {
         return enteteTcp.get(2)*16*16 + enteteTcp.get(3);
     } 
     
+<<<<<<< HEAD
     public Boolean isHttp() { 
         if (dataTcp.isEmpty()) {
             return false;
@@ -63,6 +74,8 @@ public class Tcp {
 
     } 
 
+=======
+>>>>>>> c569c6b9c778081f194312c07043d92e9011f68a
     public Long getSeqNb() {
         return enteteTcp.get(4)*(long)Math.pow(16,6) + enteteTcp.get(5)*(long)Math.pow(16,4) + enteteTcp.get(6)*(long)Math.pow(16,2) + enteteTcp.get(7);
     }
@@ -74,6 +87,7 @@ public class Tcp {
     public int getDataOffset(){
         return 4*(enteteTcp.get(12)/16);
     }
+<<<<<<< HEAD
 
     public String getFlags() { 
         String str = new String();
@@ -88,11 +102,24 @@ public class Tcp {
         return str;
     }
 
+=======
+    
+    public ArrayList<Integer> getFlags(){
+        
+        ArrayList<Integer> f = new ArrayList<Integer>();
+        String Reserved = Integer.toBinaryString(enteteTcp.get(12)/16).substring(0,3); //Reserved (never bit but could be in the future)
+        int Drapeaux = enteteTcp.get(13)/16;
+        
+        return f;
+    }
+    
+>>>>>>> c569c6b9c778081f194312c07043d92e9011f68a
     public int getWindowsLength(){
         return enteteTcp.get(14)*16*16+enteteTcp.get(15);
     }
 
     public String getChecksumHex(){
+<<<<<<< HEAD
 
         String s = "";
         s += Integer.toHexString(enteteTcp.get(16));
@@ -109,6 +136,24 @@ public class Tcp {
 
     public ArrayList<String> analyse_TCP(){
 
+=======
+
+        String s = "";
+        s += Integer.toHexString(enteteTcp.get(16));
+        s += Integer.toHexString(enteteTcp.get(17));
+        return s;
+    }
+    public int getChecksumNumber(){
+        return Integer.parseInt(getChecksumHex(),16);
+    }
+
+    public int getUrgentPointer(){
+        return enteteTcp.get(18)*16*16 + enteteTcp.get(19);
+    }
+
+    public ArrayList<String> analyse_TCP(){
+
+>>>>>>> c569c6b9c778081f194312c07043d92e9011f68a
         if(enteteTcp.isEmpty()){
             return null;
         }
