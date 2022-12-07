@@ -30,7 +30,7 @@ Voici un exemple de fichier trace au format texte possible en entrée :
 
 ## Fait avec
 
-* ![logo](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+* ![logo](https://logos-download.com/wp-content/uploads/2016/10/Java_logo.png =64x64)
 ## Utilisation/Exemples
 
 #### Depuis l'interface graphique
