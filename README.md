@@ -31,7 +31,9 @@ Voici un exemple de fichier trace au format texte possible en entrée :
 
 ## Fait avec
 
-<img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" data-canonical-src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white"/>## Pour Commencer
+<img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" data-canonical-src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white"/>
+
+## Pour Commencer
 
 Voici les étapes pour lancer le projet localement sur votre machine. Récuperer une copie du projet et suivez les différentes étapes ci-dessous.
 
