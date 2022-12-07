@@ -30,7 +30,7 @@ Voici un exemple de fichier trace au format texte possible en entrée :
 
 ## Fait avec
 
-<img src="https://logos-download.com/wp-content/uploads/2016/10/Java_logo.png" data-canonical-src="https://logos-download.com/wp-content/uploads/2016/10/Java_logo.png" width="32" height="64" />
+<img src="https://logos-download.com/wp-content/uploads/2016/10/Java_logo.png" data-canonical-src="https://logos-download.com/wp-content/uploads/2016/10/Java_logo.png" width="64" height="32" />
 
 ## Utilisation/Exemples
 
