@@ -106,6 +106,7 @@ java Test trace.txt
 ## Capture d'écran
 
 ![Capture d'ecran](https://i.postimg.cc/Hkc4tRfr/Capture-d-cran-du-2023-06-03-14-27-18.png)
+![Capture d'ecran 2](https://i.postimg.cc/DzZ1jDJV/Capture-d-cran-du-2023-06-03-14-32-44.png)
 
 ## Auteurs
 
