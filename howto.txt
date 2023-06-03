@@ -1,0 +1,14 @@
+
+
+Pour notre projet, on a deux versions, version intefrace graphique et version terminal:
+
+-VERSION INTERFACE GRAPHIQUE (L'ÉXÉCUTABLE VISUALISATEURTRAFFICRESEAU.JAR):
+
+Pour lancer le VisualisateurTrafficReseau.jar il suffit de vous positioner dans le dossier où vous avez téléchargé votre .jar et exécuter la commande : java -jar VisualisateurTrafficReseau.jar
+
+-VERSION TERMINALE (L'ÉXÉCUTABLE VISUALISATEURTERMINAL.JAR): 
+
+Pour lancer le VisualisateurTerminal.jar il suffit de vous positioner dans le dossier où vous avez téléchargé votre .jar et exécuter la commande, en précisant le chemain absolu ou relatif de votre fichier : java -jar VisualisateurTerminal.jar "chemain_vers_votre_fichier"
+
+L'exécution de ce dernier va générer un pdf des résultats du visualisateur et qui se trouvera dans le même dossier que le .jar, se nommant Visualisateur[heure d'execution].pdf .  
+
